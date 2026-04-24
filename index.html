@@ -3,274 +3,1794 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joshua López | Portafolio Profesional</title>
+    <title>Joshua López | Ingeniero en Sistemas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script>
-        (function() {
-            emailjs.init("DvkQr9T-CzO1LF4kv");
-        })();
-    </script>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --bg2: #10101a;
+            --bg3: #16161f;
+            --surface: #1c1c28;
+            --surface2: #232335;
+            --accent: #00e5a0;
+            --accent2: #7b61ff;
+            --accent3: #ff4f7b;
+            --text: #e8e8f0;
+            --text2: #9090b0;
+            --text3: #5a5a7a;
+            --border: rgba(255,255,255,0.07);
+            --glow: rgba(0,229,160,0.15);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* ─── GRID NOISE BACKGROUND ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            background: rgba(10,10,15,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .logo span { color: var(--text2); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text2);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; right: 0;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ─── SECTIONS ─── */
+        section { padding: 100px 2rem; position: relative; z-index: 1; }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--text);
+            margin-bottom: 3rem;
+        }
+
+        .section-title strong { font-weight: 700; color: var(--accent); }
+
+        /* ─── HERO ─── */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,229,160,0.1);
+            border: 1px solid rgba(0,229,160,0.2);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero-name {
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-name .first { color: var(--text); }
+        .hero-name .last { color: var(--accent); }
+
+        .hero-role {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text2);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text2);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary:hover {
+            background: #00ffb3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,229,160,0.4);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            background: var(--surface);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-socials a {
+            width: 40px; height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text2);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: var(--surface);
+        }
+
+        .hero-socials a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-photo-wrap {
+            position: relative;
+        }
+
+        .hero-photo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            z-index: 0;
+        }
+
+        .hero-photo-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border-radius: 30px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-photo {
+            width: 280px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 18px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            background: var(--surface);
+            padding: 1.2rem 1rem;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.8rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        /* ─── ABOUT ─── */
+        #about { background: var(--bg2); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text2);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .highlight-item:hover { border-color: rgba(0,229,160,0.3); }
+
+        .highlight-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: rgba(0,229,160,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .highlight-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text);
+        }
+
+        .highlight-item p {
+            font-size: 0.82rem;
+            color: var(--text2);
+        }
+
+        /* ─── EDUCATION ─── */
+        #education { background: var(--bg3); }
+
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .edu-card:hover {
+            border-color: rgba(0,229,160,0.3);
+            transform: translateY(-2px);
+        }
+
+        .edu-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent2));
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .edu-degree {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .edu-uni {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        .edu-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text3);
+            background: var(--surface2);
+            padding: 4px 12px;
+            border-radius: 100px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .course-tag {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            background: rgba(123,97,255,0.1);
+            border: 1px solid rgba(123,97,255,0.2);
+            border-radius: 4px;
+            color: #9d8fff;
+        }
+
+        /* ─── SKILLS ─── */
+        #skills { background: var(--bg); }
+
+        .skills-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .skill-category:hover { border-color: rgba(0,229,160,0.3); }
+
+        .skill-category h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-category h3::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            padding: 6px 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            border-color: rgba(0,229,160,0.4);
+            color: var(--accent);
+        }
+
+        .skill-tag i { color: var(--accent); font-size: 0.75rem; }
+
+        /* ─── EXPERIENCE ─── */
+        #experience { background: var(--bg2); }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 6px;
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid var(--bg2);
+            box-shadow: 0 0 0 3px rgba(0,229,160,0.2);
+        }
+
+        .timeline-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.4rem;
+        }
+
+        .timeline-item h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            font-size: 0.9rem;
+            color: var(--text2);
+            font-weight: 300;
+        }
+
+        /* ─── PROJECTS LIVE ─── */
+        #live-projects { background: var(--bg3); }
+
+        .live-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .live-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            group: true;
+        }
+
+        .live-card:hover {
+            border-color: rgba(0,229,160,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .live-preview {
+            width: 100%;
+            height: 200px;
+            border: none;
+            display: block;
+            background: #fff;
+            pointer-events: none;
+            transform-origin: top left;
+        }
+
+        .live-preview-wrap {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .live-preview-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .live-info {
+            padding: 1.2rem;
+        }
+
+        .live-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .live-info p {
+            font-size: 0.82rem;
+            color: var(--text2);
+            margin-bottom: 1rem;
+        }
+
+        .live-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            transition: gap 0.2s;
+        }
+
+        .live-link:hover { gap: 10px; }
+
+        /* ─── PROJECTS GITHUB ─── */
+        #projects { background: var(--bg); }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.4rem;
+            transition: all 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: rgba(0,229,160,0.3);
+            transform: translateY(-2px);
+        }
+
+        .project-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-card h3 i {
+            color: var(--accent3);
+            font-size: 0.8rem;
+        }
+
+        .project-card p {
+            font-size: 0.82rem;
+            color: var(--text2);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .project-link {
+            font-size: 0.78rem;
+            color: var(--text3);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .project-link:hover { color: var(--accent); }
+
+        /* ─── CERTIFICATES ─── */
+        #certificates { background: var(--bg2); }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cert-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1.4rem;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .cert-card:hover {
+            border-color: rgba(123,97,255,0.4);
+            transform: translateY(-2px);
+        }
+
+        .cert-org {
+            font-size: 0.7rem;
+            color: var(--accent2);
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.08em;
+        }
+
+        .cert-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .cert-link {
+            font-size: 0.75rem;
+            color: var(--text3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: auto;
+            transition: color 0.2s;
+        }
+
+        .cert-link:hover { color: var(--accent2); }
+
+        /* ─── CONTACT ─── */
+        #contact { background: var(--bg3); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            font-size: 0.95rem;
+            color: var(--text2);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .contact-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .contact-item-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: rgba(0,229,160,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .contact-item span {
+            font-size: 0.82rem;
+            color: var(--text3);
+            display: block;
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 2px;
+        }
+
+        .contact-item strong {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: rgba(0,229,160,0.4);
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder { color: var(--text3); }
+
+        .form-field textarea { resize: vertical; min-height: 120px; }
+
+        .btn-send {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-send:hover {
+            background: #00ffb3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,229,160,0.4);
+        }
+
+        .form-alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .form-alert.success {
+            background: rgba(0,229,160,0.1);
+            border: 1px solid rgba(0,229,160,0.3);
+            color: var(--accent);
+        }
+
+        .form-alert.error {
+            background: rgba(255,79,123,0.1);
+            border: 1px solid rgba(255,79,123,0.3);
+            color: var(--accent3);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text3);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a { color: var(--accent); text-decoration: none; }
+
+        /* ─── MOBILE NAV OVERLAY ─── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            background: var(--bg);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover { color: var(--accent); }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-photo-wrap { display: none; }
+            .hero-ctas { justify-content: center; }
+            .hero-socials { justify-content: center; }
+            .hero-stats { grid-template-columns: repeat(3, 1fr); }
+            .about-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            section { padding: 80px 1.2rem; }
+            .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats { grid-template-columns: 1fr; gap: 1px; }
+            .live-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .certs-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ─── FADE IN ANIMATION ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container header-content">
-            <a href="#home" class="logo">JOSHUA LOPEZ</a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Inicio</a></li>
-                    <li><a href="#about">Sobre Mí</a></li>
-                    <li><a href="#skills">Habilidades</a></li>
-                    <li><a href="#experience">Experiencia</a></li>
-                    <li><a href="#projects">Proyectos</a></li>
-                    <li><a href="#certificates">Certificados</a></li>
-                    <li><a href="#contact">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<!-- NAV -->
+<nav>
+    <a href="#home" class="logo">JOSHUA<span>.LOPEZ</span></a>
+    <ul class="nav-links">
+        <li><a href="#home">Inicio</a></li>
+        <li><a href="#about">Sobre Mí</a></li>
+        <li><a href="#education">Educación</a></li>
+        <li><a href="#skills">Habilidades</a></li>
+        <li><a href="#experience">Experiencia</a></li>
+        <li><a href="#live-projects">Proyectos</a></li>
+        <li><a href="#certificates">Certificados</a></li>
+        <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
 
-    <main>
-        <section id="home" class="hero container">
-            <div class="hero-text">
-                <h1>Hola, soy <span>Joshua López</span></h1>
-                <p class="subtitle">Estudiante de Ingeniería en Sistemas</p>
-                <p>Apasionado por el desarrollo web, la ciberseguridad y las bases de datos. Busco oportunidades para aplicar mis habilidades y contribuir al éxito de proyectos innovadores.</p>
-                <div class="social-icons">
-                    <a href="https://github.com/Josh181i" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.instagram.com/thee_josh_?igsh=NnByc3psOW4yOWpq&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/50685494388" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="6dbaa7ab-1127-4c50-b8d6-b7b76097f7ec.jpg" alt="Joshua López">
-            </div>
-        </section>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-link">Inicio</a>
+    <a href="#about" class="mobile-link">Sobre Mí</a>
+    <a href="#education" class="mobile-link">Educación</a>
+    <a href="#skills" class="mobile-link">Habilidades</a>
+    <a href="#experience" class="mobile-link">Experiencia</a>
+    <a href="#live-projects" class="mobile-link">Proyectos</a>
+    <a href="#certificates" class="mobile-link">Certificados</a>
+    <a href="#contact" class="mobile-link">Contacto</a>
+</div>
 
-        <section id="about" class="section">
-            <div class="container about-me">
-                <h2 class="section-title">Sobre <span>Mí</span></h2>
-                 <p>
-                    Estudiante de Ingeniería en Sistemas con experiencia en desarrollo web, ciberseguridad,
-                    bases de datos y metodologías ágiles. Además de mis habilidades técnicas, cuento con
-                    formación como entrenador de gimnasio y practicante de artes marciales, lo que me ha
-                    permitido desarrollar disciplina, resiliencia y actitud positiva para trabajar en equipo y
-                    superar retos. Mi objetivo es aportar tanto capacidades técnicas como valores personales
-                    para contribuir al éxito de proyectos innovadores.
+<main>
+
+<!-- ── HERO ── -->
+<section id="home">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-text fade-in">
+                <div class="hero-badge">Disponible para trabajar</div>
+                <h1 class="hero-name">
+                    <span class="first">Joshua</span><br>
+                    <span class="last">López</span>
+                </h1>
+                <p class="hero-role">Ingeniero en Sistemas de Computación · Junior</p>
+                <p class="hero-desc">
+                    Recién graduado de la Universidad Fidélitas, especializado en desarrollo web,
+                    ciberseguridad, bases de datos y redes. Apasionado por construir soluciones
+                    tecnológicas funcionales y escalables.
                 </p>
-                 <div class="contact-details">
-                    <p><strong>Disponibilidad:</strong> Inmediata.</p>
+                <div class="hero-ctas">
+                    <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Contáctame</a>
+                    <a href="#live-projects" class="btn-outline"><i class="fas fa-code"></i> Ver Proyectos</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/Josh181i" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/thee_josh_?igsh=NnByc3psOW4yOWpq&utm_source=qr" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/50685494388" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:theejosh2@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-num">14+</div>
+                        <div class="stat-label">Proyectos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">10+</div>
+                        <div class="stat-label">Certificados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">8</div>
+                        <div class="stat-label">Tecnologías</div>
+                    </div>
                 </div>
             </div>
-        </section>
+            <div class="hero-photo-wrap fade-in">
+                <img src="6dbaa7ab-1127-4c50-b8d6-b7b76097f7ec.jpg" alt="Joshua López" class="hero-photo">
+            </div>
+        </div>
+    </div>
+</section>
 
-        <section id="skills" class="section">
-            <div class="container">
-                <h2 class="section-title"><span>Habilidades</span> Técnicas</h2>
-                <div class="skills-grid">
-                    <div class="skill-card"><i class="fab fa-java"></i><p>Java</p></div>
-                    <div class="skill-card"><i class="fab fa-python"></i><p>Python</p></div>
-                    <div class="skill-card"><i class="fab fa-js"></i><p>JavaScript</p></div>
-                    <div class="skill-card"><i class="fab fa-php"></i><p>PHP</p></div>
-                    <div class="skill-card"><i class="fas fa-database"></i><p>SQL</p></div>
-                    <div class="skill-card"><i class="fab fa-html5"></i><p>HTML</p></div>
-                    <div class="skill-card"><i class="fab fa-css3-alt"></i><p>CSS</p></div>
-                    <div class="skill-card"><i class="fas fa-code"></i><p>.NET MVC</p></div>
-                    <div class="skill-card"><i class="fas fa-mobile-alt"></i><p>FlutterFlow</p></div>
-                    <div class="skill-card"><i class="fab fa-android"></i><p>Android Studio</p></div>
-                    <div class="skill-card"><i class="fas fa-server"></i><p>MySQL</p></div>
-                     <div class="skill-card"><i class="fas fa-server"></i><p>SQL Server</p></div>
-                    <div class="skill-card"><i class="fab fa-linux"></i><p>Kali Linux</p></div>
-                    <div class="skill-card"><i class="fas fa-shield-alt"></i><p>Wireshark</p></div>
-                    <div class="skill-card"><i class="fab fa-figma"></i><p>Figma</p></div>
-                     <div class="skill-card"><i class="fas fa-fire"></i><p>Firebase</p></div>
+<!-- ── ABOUT ── -->
+<section id="about">
+    <div class="container">
+        <p class="section-label">Perfil</p>
+        <h2 class="section-title">Sobre <strong>Mí</strong></h2>
+        <div class="about-grid">
+            <div class="about-text fade-in">
+                <p>
+                    Soy Ingeniero en Sistemas de Computación recién graduado de la Universidad Fidélitas
+                    (acreditada por SINAES), con formación sólida en programación, arquitectura de software,
+                    redes, bases de datos y ciberseguridad.
+                </p>
+                <p>
+                    Mi formación bajo la metodología STEM me permite <strong style="color:var(--text)">aprender haciendo</strong>,
+                    resolviendo problemas reales desde el primer día. Busco mi primera oportunidad profesional
+                    en áreas de desarrollo de software, soporte TI, ciberseguridad o administración de bases de datos.
+                </p>
+                <p>
+                    Además de lo técnico, soy entrenador de gimnasio certificado y practicante de artes marciales,
+                    lo que me ha forjado disciplina, resiliencia y capacidad para trabajar bajo presión y en equipo.
+                </p>
+                <p style="margin-top:1.5rem;">
+                    <strong style="color:var(--accent); font-family:'Space Mono',monospace; font-size:0.85rem;">
+                        ✦ Disponibilidad inmediata · San José, Costa Rica
+                    </strong>
+                </p>
+            </div>
+            <div class="about-highlights fade-in">
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-code"></i></div>
+                    <div>
+                        <h4>Desarrollo de Software</h4>
+                        <p>Web, móvil y desktop con múltiples lenguajes y frameworks.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-shield-halved"></i></div>
+                    <div>
+                        <h4>Ciberseguridad</h4>
+                        <p>Kali Linux, Wireshark, ethical hacking y auditoría de sistemas.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-database"></i></div>
+                    <div>
+                        <h4>Bases de Datos</h4>
+                        <p>MySQL, SQL Server, Oracle, Firebase y operaciones CRUD completas.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <h4>Redes & Infraestructura</h4>
+                        <p>CCNA, topologías, Packet Tracer, monitoreo y administración.</p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section id="experience" class="section">
-            <div class="container">
-                <h2 class="section-title"><span>Experiencia</span></h2>
-                 <div class="experience-item">
-                    <h3>Vendedor – Carnicería (6 meses)</h3>
-                    <p>Atención al cliente, manejo de caja y servicio al público.</p>
+<!-- ── EDUCATION ── -->
+<section id="education">
+    <div class="container">
+        <p class="section-label">Formación Académica</p>
+        <h2 class="section-title">Mi <strong>Educación</strong></h2>
+
+        <div class="edu-card fade-in">
+            <div class="edu-header">
+                <div>
+                    <div class="edu-degree">Bachillerato en Ingeniería en Sistemas de Computación</div>
+                    <div class="edu-uni">Universidad Fidélitas · Acreditada por SINAES</div>
                 </div>
-                <div class="experience-item">
-                    <h3>Desarrollo de Software</h3>
-                    <p>Amplio conocimiento en programación con Java, desarrollo web con Visual Studio Code utilizando PHP, APIS BackEnd, FrontEnd y desarrollo de aplicaciones móviles. Especializado en creación de páginas web y desarrollo de videojuegos con Visual Studio.</p>
+                <div class="edu-year">2022 – 2025</div>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text2); margin-bottom:1rem;">
+                Programa acreditado, basado en metodología STEM (aprender haciendo). Formación integral
+                en programación, redes, bases de datos, ciberseguridad y gestión de proyectos de TI.
+            </p>
+            <p style="font-size:0.78rem; color:var(--text3); font-family:'Space Mono',monospace; margin-bottom:0.8rem;">
+                Cursos relevantes completados:
+            </p>
+            <div class="courses-grid">
+                <span class="course-tag">Programación Básica</span>
+                <span class="course-tag">Estructura de Datos</span>
+                <span class="course-tag">Programación Avanzada</span>
+                <span class="course-tag">Prog. Avanzada en Web</span>
+                <span class="course-tag">Prog. para Dispositivos Móviles</span>
+                <span class="course-tag">Diseño de Interfaz Gráfica</span>
+                <span class="course-tag">Desarrollo de Aplicaciones Web</span>
+                <span class="course-tag">Fundamentos de Base de Datos</span>
+                <span class="course-tag">Administración de BD</span>
+                <span class="course-tag">Lenguaje de BD (SQL)</span>
+                <span class="course-tag">Data Warehouse</span>
+                <span class="course-tag">Principios de Redes</span>
+                <span class="course-tag">Fundamentos de Encrutamiento</span>
+                <span class="course-tag">Gobernanza de TIC</span>
+                <span class="course-tag">Auditoría de Sistemas</span>
+                <span class="course-tag">Análisis de Requerimientos</span>
+                <span class="course-tag">Diseño y Desarrollo de Sistemas</span>
+                <span class="course-tag">Calidad del Software</span>
+                <span class="course-tag">Metodologías de Proyectos</span>
+                <span class="course-tag">Implantación de Sistemas</span>
+            </div>
+        </div>
+
+        <div class="edu-card fade-in">
+            <div class="edu-header">
+                <div>
+                    <div class="edu-degree">Certificaciones Profesionales</div>
+                    <div class="edu-uni">Cisco Networking Academy · SCRUMstudy · Google · Six Sigma</div>
                 </div>
-                 <div class="experience-item">
-                    <h3>Ciberseguridad</h3>
-                    <p>Experiencia trabajando con Kali Linux y otras distribuciones de Linux en el área de seguridad informática.</p>
-                </div>
-                 <div class="experience-item">
-                    <h3>Redes</h3>
-                    <p>Experiencia trabajando en proyectos topologicos, switches, conexiones monitoreo de red y liberacion de trafico con Wireshark. Conocimientos en redes y uso de Packet Tracer de Cisco para simulaciones de redes.</p>
-                </div>
-                 <div class="experience-item">
-                    <h3>Bases de Datos</h3>
-                    <p>Experiencia en el control y manejo de bases de datos con MySQL Workbench, XAMPP, SQL Management Studio y Oracle.</p>
+                <div class="edu-year">2023 – 2025</div>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text2);">
+                Formación complementaria con certificaciones internacionales en redes (CCNA),
+                ciberseguridad, IoT, metodologías ágiles (Scrum), Six Sigma Yellow Belt y
+                marketing digital.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+    <div class="container">
+        <p class="section-label">Stack Tecnológico</p>
+        <h2 class="section-title"><strong>Habilidades</strong> Técnicas</h2>
+        <div class="skills-categories">
+
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-code"></i> Lenguajes</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+                    <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="skill-tag"><i class="fab fa-php"></i> PHP</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> C#</span>
                 </div>
             </div>
-        </section>
 
-        <section id="projects" class="section">
-            <div class="container">
-                <h2 class="section-title">Mis <span>Proyectos</span></h2>
-                <div class="projects-grid">
-                    <!-- Proyectos existentes -->
-                    <div class="project-card"><div class="project-card-content"><h3>Zombie Protocol</h3><p>Juego de supervivencia zombie desarrollado con Unity y C#.</p><a href="https://github.com/Diego2452/ZOMBIE-PROTOCOL.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Tienda Virtual</h3><p>Plataforma de e-commerce completa con carrito de compras.</p><a href="https://github.com/Josh181i/tienda_vt.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Techtonic</h3><p>Sitio web para empresa de tecnología con catálogo de productos.</p><a href="https://github.com/Josh181i/Techtonic.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Sistema de Taller</h3><p>Sistema para gestión de citas y servicios de taller mecánico.</p><a href="https://github.com/Josh181i/registro-de-taller.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Restaurante</h3><p>Sitio web para restaurante con menú interactivo y reservas.</p><a href="https://github.com/Josh181i/pagina-webb-de-recta-de-comida.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Diccionario Inglés</h3><p>Diccionario interactivo inglés-español con funcionalidad de búsqueda.</p><a href="https://github.com/Josh181i/pagina-webb-diciconario-en-ingles.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Registro de Notas</h3><p>Sistema para registro y seguimiento de notas escolares.</p><a href="https://github.com/Josh181i/pagina-web-registro-de-notas-para-escuela-.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>CRUD de Base de Datos</h3><p>Operaciones CRUD completas con diferentes tecnologías de bases de datos.</p><a href="https://github.com/Josh181i/BD-operaciones-crud.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Portafolio Profesional</h3><p>Este mismo portafolio profesional desarrollado con HTML, CSS y JavaScript.</p><a href="https://github.com/Josh181i/portafolio.github.io.git" target="_blank">Ver en GitHub</a></div></div>
-                    <!-- Nuevos proyectos -->
-                    <div class="project-card"><div class="project-card-content"><h3>Sistema de Gestión Académica</h3><p>Proyecto final de Progra Avanzada.</p><a href="https://github.com/AllanAzo17/SC-601-PA-G4-ProyectoFinal.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Tecmave App DB</h3><p>Base de datos para la aplicación Tecmave.</p><a href="https://github.com/vivianmvero13/Tecmave_App_DB.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Reservas Municipales</h3><p>Página web para reservas de espacios municipales.</p><a href="https://github.com/Josh181i/pagina-web-para-reservas-municipales.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Peluquería Web</h3><p>Página web para una peluquería.</p><a href="https://github.com/Josh181i/pagina-webb-de-peluqueria.git" target="_blank">Ver en GitHub</a></div></div>
-                    <div class="project-card"><div class="project-card-content"><h3>Sistema de Gestión Universitario</h3><p>Proyecto universitario en equipo.</p><a href="https://github.com/Chechogit/sc502-1c2025-grupo5.git" target="_blank">Ver en GitHub</a></div></div>
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-globe"></i> Web & Frontend</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+                    <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> .NET MVC</span>
+                    <span class="skill-tag"><i class="fab fa-figma"></i> Figma</span>
                 </div>
             </div>
-        </section>
 
-        <section id="certificates" class="section">
-            <div class="container">
-                <h2 class="section-title">Mis <span>Certificados</span></h2>
-                <div class="certificates-grid">
-                    <!-- Certificados existentes -->
-                    <div class="certificate-card"><h3>CCNA v7: Introducción a Redes</h3><p>Otorgado por: Cisco Networking Academy</p><a href="https://drive.google.com/file/d/1KcXOIf64t5OewE9-qQGhCGbzZbmNUOY7/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Introducción a IoT</h3><p>Otorgado por: Cisco Networking Academy</p><a href="https://drive.google.com/file/d/1zd4khBLzQDKhXCZ_IlH7O3rx_i_6otFO/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Universal Robots Academy</h3><p>Otorgado por: Universal Robots</p><a href="https://drive.google.com/file/d/1KeBnkL3y5sFuessb4WF8Ut_zLJJ0fv0z/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Excel Básico</h3><p>Otorgado por: FideVirtual</p><a href="https://drive.google.com/file/d/1rErAOvGlxZL3REUsllGoAfvsf6WSH4u-/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Introducción a la Ciberseguridad</h3><p>Otorgado por: Cisco Networking Academy</p><a href="https://drive.google.com/file/d/1LXCFz6ZpN0UO6q91GSa1wkXV0fWus0Va/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Fundamentos de Redes</h3><p>Otorgado por: Cisco Networking Academy</p><a href="https://drive.google.com/file/d/10TP6b9OtFNTFTfP3yNw8cmR3a_8_QdOH/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Scrum Fundamentals Certified</h3><p>Otorgado por: SCRUMstudy</p><a href="https://drive.google.com/file/d/1nZyvlQ7B6PYS6-9G7Q1GTbEBe2ML5oFQ/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Six Sigma Yellow Belt</h3><p>Otorgado por: Six Sigma Institute</p><a href="https://drive.google.com/file/d/1h63PZc4G4LxMVdzgVJUdrdFXQ1VorJqM/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <div class="certificate-card"><h3>Digital Marketing Fundamentals</h3><p>Otorgado por: Google Digital Garage</p><a href="https://drive.google.com/file/d/1REgyH9nR4XKIxmox1VGned6eJaXDZwbQ/view?usp=sharing" target="_blank">Ver Certificado</a></div>
-                    <!-- Nuevo certificado -->
-                    <div class="certificate-card"><h3>Uso de Computadoras y Dispositivos Móviles</h3><p>Otorgado por: Cisco Networking Academy</p><a href="https://drive.google.com/file/d/1YlUCiP2OtYyTM5sHNxqYiVhojvcIQ_TE/view?usp=drive_link" target="_blank">Ver Certificado</a></div>
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-mobile-alt"></i> Móvil</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fab fa-android"></i> Android Studio</span>
+                    <span class="skill-tag"><i class="fas fa-mobile-alt"></i> FlutterFlow</span>
                 </div>
             </div>
-        </section>
 
-        <section id="contact" class="section">
-            <div class="container">
-                <h2 class="section-title"><span>Contacto</span></h2>
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-database"></i> Bases de Datos</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fas fa-server"></i> MySQL</span>
+                    <span class="skill-tag"><i class="fas fa-server"></i> SQL Server</span>
+                    <span class="skill-tag"><i class="fas fa-server"></i> Oracle</span>
+                    <span class="skill-tag"><i class="fas fa-fire"></i> Firebase</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> XAMPP</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-network-wired"></i> Redes</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fas fa-network-wired"></i> Packet Tracer</span>
+                    <span class="skill-tag"><i class="fas fa-shield-alt"></i> Wireshark</span>
+                    <span class="skill-tag"><i class="fas fa-server"></i> CCNA v7</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-shield-halved"></i> Ciberseguridad</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fab fa-linux"></i> Kali Linux</span>
+                    <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="skill-tag"><i class="fas fa-eye"></i> Ethical Hacking</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-people-group"></i> Metodologías</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fas fa-rotate"></i> Scrum</span>
+                    <span class="skill-tag"><i class="fas fa-chart-line"></i> Six Sigma YB</span>
+                    <span class="skill-tag"><i class="fas fa-diagram-project"></i> PMBOK</span>
+                    <span class="skill-tag"><i class="fas fa-code-branch"></i> Git / GitHub</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i class="fas fa-gamepad"></i> Otros</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fas fa-gamepad"></i> Unity / C#</span>
+                    <span class="skill-tag"><i class="fab fa-microsoft"></i> Microsoft Azure</span>
+                    <span class="skill-tag"><i class="fas fa-file-excel"></i> Excel</span>
+                    <span class="skill-tag"><i class="fas fa-robot"></i> IoT</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+    <div class="container">
+        <p class="section-label">Trayectoria</p>
+        <h2 class="section-title">Mi <strong>Experiencia</strong></h2>
+        <div class="timeline">
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-meta">2022 – 2025 · Universidad Fidélitas</div>
+                <h3>Desarrollo de Software (Académico & Proyectos Propios)</h3>
+                <p>
+                    Construcción de aplicaciones web full-stack con PHP, JavaScript, .NET MVC y Java.
+                    Desarrollo de aplicaciones móviles con Android Studio y FlutterFlow. Creación de
+                    videojuegos con Unity y C#. Más de 14 proyectos publicados en GitHub y 4 sitios web desplegados en producción.
+                </p>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-meta">2023 – 2025 · Proyectos Universitarios</div>
+                <h3>Administración y Diseño de Bases de Datos</h3>
+                <p>
+                    Diseño e implementación de bases de datos relacionales con MySQL Workbench,
+                    SQL Server Management Studio y Oracle. Aplicación de normalización, stored procedures,
+                    triggers y operaciones CRUD en proyectos reales de equipo.
+                </p>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-meta">2023 – 2024 · Cursos CCNA & Lab</div>
+                <h3>Redes & Infraestructura TI</h3>
+                <p>
+                    Configuración de switches, routers y topologías complejas en Packet Tracer de Cisco.
+                    Monitoreo de tráfico de red con Wireshark. Implementación de VLANs, protocolos de
+                    enrutamiento y diseño de redes en entornos simulados y físicos.
+                </p>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-meta">2023 – 2024 · Cisco Networking Academy</div>
+                <h3>Ciberseguridad & Ethical Hacking</h3>
+                <p>
+                    Trabajo con distribuciones de Kali Linux para análisis de vulnerabilidades,
+                    pruebas de penetración básicas y análisis de tráfico con Wireshark.
+                    Fundamentos de seguridad informática y auditoría de sistemas.
+                </p>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-meta">2023 · Experiencia Comercial</div>
+                <h3>Atención al Cliente – Carnicería (6 meses)</h3>
+                <p>
+                    Manejo de caja, atención al público, gestión de inventario básico y servicio
+                    al cliente presencial. Desarrollo de habilidades de comunicación, responsabilidad
+                    y trabajo bajo presión.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── LIVE PROJECTS ── -->
+<section id="live-projects">
+    <div class="container">
+        <p class="section-label">En Producción · Sitios Reales</p>
+        <h2 class="section-title">Proyectos <strong>Desplegados</strong></h2>
+        <div class="live-grid">
+
+            <div class="live-card fade-in">
+                <div class="live-preview-wrap">
+                    <iframe class="live-preview" src="https://josh181i.github.io/paginaclub/" title="Club Page" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+                <div class="live-info">
+                    <h3>Página de Club</h3>
+                    <p>Sitio web completo para un club, con secciones de información, actividades y contacto. Diseño responsivo y moderno.</p>
+                    <a href="https://josh181i.github.io/paginaclub/" target="_blank" class="live-link">
+                        Ver sitio en vivo <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="live-card fade-in">
+                <div class="live-preview-wrap">
+                    <iframe class="live-preview" src="https://josh181i.github.io/curcuvita/" title="Curcuvita" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+                <div class="live-info">
+                    <h3>Curcuvita</h3>
+                    <p>Landing page temática con diseño creativo, tipografía expresiva y estructura de contenido clara y atractiva.</p>
+                    <a href="https://josh181i.github.io/curcuvita/" target="_blank" class="live-link">
+                        Ver sitio en vivo <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="live-card fade-in">
+                <div class="live-preview-wrap">
+                    <iframe class="live-preview" src="https://josh181i.github.io/web-page-by-m-boutique/" title="M Boutique" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+                <div class="live-info">
+                    <h3>M Boutique</h3>
+                    <p>Sitio web de moda/boutique con catálogo de productos, estética elegante y experiencia de usuario refinada.</p>
+                    <a href="https://josh181i.github.io/web-page-by-m-boutique/" target="_blank" class="live-link">
+                        Ver sitio en vivo <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="live-card fade-in">
+                <div class="live-preview-wrap">
+                    <iframe class="live-preview" src="https://josh181i.github.io/WXNELO/" title="WXNELO" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+                <div class="live-info">
+                    <h3>WXNELO</h3>
+                    <p>Proyecto web con identidad visual propia, desarrollado íntegramente con HTML, CSS y JavaScript vanilla.</p>
+                    <a href="https://josh181i.github.io/WXNELO/" target="_blank" class="live-link">
+                        Ver sitio en vivo <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── GITHUB PROJECTS ── -->
+<section id="projects">
+    <div class="container">
+        <p class="section-label">Repositorios · GitHub</p>
+        <h2 class="section-title">Más <strong>Proyectos</strong></h2>
+        <div class="projects-grid">
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-gamepad"></i> Zombie Protocol</h3>
+                <p>Juego de supervivencia zombie desarrollado con Unity y C#. Mecánicas de combate, sistema de oleadas y gestión de recursos.</p>
+                <a href="https://github.com/Diego2452/ZOMBIE-PROTOCOL.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-shopping-cart"></i> Tienda Virtual</h3>
+                <p>Plataforma e-commerce completa con carrito de compras, gestión de productos y sistema de usuarios.</p>
+                <a href="https://github.com/Josh181i/tienda_vt.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-laptop-code"></i> Techtonic</h3>
+                <p>Sitio web corporativo para empresa tecnológica con catálogo de productos y secciones de servicios.</p>
+                <a href="https://github.com/Josh181i/Techtonic.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-wrench"></i> Sistema de Taller</h3>
+                <p>Sistema de gestión de citas y servicios para taller mecánico. Registro de clientes y seguimiento de órdenes de trabajo.</p>
+                <a href="https://github.com/Josh181i/registro-de-taller.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-utensils"></i> Restaurante Web</h3>
+                <p>Sitio para restaurante con menú interactivo, galería y sistema de reservas en línea.</p>
+                <a href="https://github.com/Josh181i/pagina-webb-de-recta-de-comida.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-book"></i> Diccionario Inglés</h3>
+                <p>Diccionario inglés-español interactivo con funcionalidad de búsqueda en tiempo real y definiciones detalladas.</p>
+                <a href="https://github.com/Josh181i/pagina-webb-diciconario-en-ingles.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-graduation-cap"></i> Registro de Notas</h3>
+                <p>Sistema de registro y seguimiento de calificaciones escolares con gestión de estudiantes y reportes.</p>
+                <a href="https://github.com/Josh181i/pagina-web-registro-de-notas-para-escuela-.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-database"></i> CRUD de Base de Datos</h3>
+                <p>Implementación completa de operaciones CRUD con distintas tecnologías de bases de datos y backend.</p>
+                <a href="https://github.com/Josh181i/BD-operaciones-crud.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-university"></i> Gestión Académica</h3>
+                <p>Proyecto final de Programación Avanzada: sistema integral de gestión universitaria en equipo.</p>
+                <a href="https://github.com/AllanAzo17/SC-601-PA-G4-ProyectoFinal.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-mobile-alt"></i> Tecmave App DB</h3>
+                <p>Base de datos diseñada para la aplicación móvil Tecmave, con estructura optimizada y relaciones normalizadas.</p>
+                <a href="https://github.com/vivianmvero13/Tecmave_App_DB.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-building"></i> Reservas Municipales</h3>
+                <p>Plataforma web para reserva de espacios municipales con calendario interactivo y gestión de usuarios.</p>
+                <a href="https://github.com/Josh181i/pagina-web-para-reservas-municipales.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-scissors"></i> Peluquería Web</h3>
+                <p>Sitio web profesional para peluquería con catálogo de servicios, galería y formulario de citas.</p>
+                <a href="https://github.com/Josh181i/pagina-webb-de-peluqueria.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-users"></i> Sistema Universitario</h3>
+                <p>Proyecto colaborativo universitario: sistema de gestión académica con roles y módulos avanzados.</p>
+                <a href="https://github.com/Chechogit/sc502-1c2025-grupo5.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3><i class="fas fa-id-card"></i> Portafolio Profesional</h3>
+                <p>Este mismo portafolio, desarrollado con HTML, CSS y JavaScript. Diseño responsivo y moderno.</p>
+                <a href="https://github.com/Josh181i/portafolio.github.io.git" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver en GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── CERTIFICATES ── -->
+<section id="certificates">
+    <div class="container">
+        <p class="section-label">Credenciales</p>
+        <h2 class="section-title">Mis <strong>Certificados</strong></h2>
+        <div class="certs-grid">
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Cisco Networking Academy</div>
+                <div class="cert-name">CCNA v7: Introducción a Redes</div>
+                <a href="https://drive.google.com/file/d/1KcXOIf64t5OewE9-qQGhCGbzZbmNUOY7/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Cisco Networking Academy</div>
+                <div class="cert-name">Introducción a la Ciberseguridad</div>
+                <a href="https://drive.google.com/file/d/1LXCFz6ZpN0UO6q91GSa1wkXV0fWus0Va/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Cisco Networking Academy</div>
+                <div class="cert-name">Fundamentos de Redes</div>
+                <a href="https://drive.google.com/file/d/10TP6b9OtFNTFTfP3yNw8cmR3a_8_QdOH/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Cisco Networking Academy</div>
+                <div class="cert-name">Introducción a IoT</div>
+                <a href="https://drive.google.com/file/d/1zd4khBLzQDKhXCZ_IlH7O3rx_i_6otFO/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Cisco Networking Academy</div>
+                <div class="cert-name">Uso de Computadoras y Dispositivos Móviles</div>
+                <a href="https://drive.google.com/file/d/1YlUCiP2OtYyTM5sHNxqYiVhojvcIQ_TE/view?usp=drive_link" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">SCRUMstudy</div>
+                <div class="cert-name">Scrum Fundamentals Certified</div>
+                <a href="https://drive.google.com/file/d/1nZyvlQ7B6PYS6-9G7Q1GTbEBe2ML5oFQ/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Six Sigma Institute</div>
+                <div class="cert-name">Six Sigma Yellow Belt</div>
+                <a href="https://drive.google.com/file/d/1h63PZc4G4LxMVdzgVJUdrdFXQ1VorJqM/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Google Digital Garage</div>
+                <div class="cert-name">Digital Marketing Fundamentals</div>
+                <a href="https://drive.google.com/file/d/1REgyH9nR4XKIxmox1VGned6eJaXDZwbQ/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">Universal Robots</div>
+                <div class="cert-name">Universal Robots Academy</div>
+                <a href="https://drive.google.com/file/d/1KeBnkL3y5sFuessb4WF8Ut_zLJJ0fv0z/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+            <div class="cert-card fade-in">
+                <div class="cert-org">FideVirtual</div>
+                <div class="cert-name">Excel Básico</div>
+                <a href="https://drive.google.com/file/d/1rErAOvGlxZL3REUsllGoAfvsf6WSH4u-/view?usp=sharing" target="_blank" class="cert-link"><i class="fas fa-external-link-alt"></i> Ver Certificado</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+    <div class="container">
+        <p class="section-label">Hablemos</p>
+        <h2 class="section-title">¿Tienes una <strong>Oportunidad?</strong></h2>
+        <div class="contact-grid">
+
+            <div class="contact-info fade-in">
+                <h3>Estoy listo para empezar</h3>
+                <p>
+                    Busco mi primera oportunidad en el área de TI. Si tienes una posición junior
+                    en desarrollo, soporte, ciberseguridad o redes — me encantaría conocerte.
+                </p>
+                <div class="contact-items">
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <span>Teléfono / WhatsApp</span>
+                            <strong>+506 8549-4388</strong>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <span>Correo Electrónico</span>
+                            <strong>theejosh2@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-location-dot"></i></div>
+                        <div>
+                            <span>Ubicación</span>
+                            <strong>San Pedro, Sabanilla · San José, CR</strong>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <span>Disponibilidad</span>
+                            <strong>Inmediata · Tiempo completo</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fade-in">
                 <form id="contactForm" class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Nombre" required>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-field">
+                            <input type="email" id="email" name="email" placeholder="Tu correo" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
-                    </div>
-                    <div class="form-group">
+                    <div class="form-field">
                         <input type="text" id="subject" name="subject" placeholder="Asunto" required>
                     </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="5" placeholder="Mensaje" required></textarea>
+                    <div class="form-field">
+                        <textarea id="message" name="message" placeholder="Cuéntame sobre la oportunidad..." required></textarea>
                     </div>
-                    <button type="submit" class="btn">Enviar Mensaje</button>
+                    <button type="submit" class="btn-send">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                    </button>
+                    <div id="formAlert" class="form-alert"></div>
                 </form>
-                <div id="alert" class="alert" style="display:none;"></div>
-                <div id="spinner" class="spinner"></div>
-                 <div class="contact-details">
-                    <p><strong>Cédula:</strong> 119440530</p>
-                    <p><strong>Teléfono:</strong> +506 8549-4388</p>
-                    <p><strong>Correo:</strong> theejosh2@gmail.com</p>
-                    <p><strong>Ubicación:</strong> San José, San Pedro, Sabanilla</p>
-                </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Joshua López. Todos los derechos reservados.</p>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+</main>
+
+<footer>
+    <p>© 2025 Joshua López · Ingeniero en Sistemas · Hecho con <span style="color:var(--accent3)">♥</span> en San José, Costa Rica</p>
+    <p style="margin-top:0.5rem;"><a href="https://github.com/Josh181i" target="_blank">github.com/Josh181i</a></p>
+</footer>
+
+<script>
+    // EmailJS init
+    (function() { emailjs.init("DvkQr9T-CzO1LF4kv"); })();
+
+    // HAMBURGER
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         });
+    });
 
-        // EmailJS form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+    // ACTIVE NAV
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
-            const alertBox = document.getElementById('alert');
-            const spinner = document.getElementById('spinner');
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            if (!name || !email || !subject || !message) {
-                showAlert('Por favor completa todos los campos', 'error');
-                return;
-            }
-
-            if (!isValidEmail(email)) {
-                showAlert('Por favor ingresa un email válido', 'error');
-                return;
-            }
-
-            spinner.style.display = 'block';
-            alertBox.style.display = 'none';
-
-            emailjs.send("service_lhi6zid", "template_eesy2nr", {
-                from_name: name,
-                reply_to: email,
-                subject: subject,
-                message: message,
-                to_email: "theejosh2@gmail.com"
-            })
-            .then(function(response) {
-                spinner.style.display = 'none';
-                showAlert('¡Mensaje enviado con éxito! Me pondré en contacto contigo pronto.', 'success');
-                document.getElementById('contactForm').reset();
-            }, function(error) {
-                spinner.style.display = 'none';
-                showAlert('Error al enviar el mensaje: ' + error.text, 'error');
-            });
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
         });
+        navLinks.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+        });
+    });
 
-        function showAlert(message, type) {
-            const alertBox = document.getElementById('alert');
-            alertBox.textContent = message;
-            alertBox.className = 'alert';
-
-            if (type === 'success') {
-                alertBox.classList.add('alert-success');
-            } else if (type === 'error') {
-                alertBox.classList.add('alert-error');
+    // FADE IN OBSERVER
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                observer.unobserve(entry.target);
             }
+        });
+    }, { threshold: 0.1 });
 
-            alertBox.style.display = 'block';
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-            setTimeout(() => {
-                alertBox.style.display = 'none';
-            }, 5000);
+    // CONTACT FORM
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const alert = document.getElementById('formAlert');
+        const btn = this.querySelector('.btn-send');
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+            showAlert('Por favor completá todos los campos.', 'error'); return;
         }
 
-        function isValidEmail(email) {
-            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRe.test(email)) {
+            showAlert('Ingresá un correo válido.', 'error'); return;
         }
-    </script>
+
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
+
+        emailjs.send("service_lhi6zid", "template_eesy2nr", {
+            from_name: name,
+            reply_to: email,
+            subject: subject,
+            message: message,
+            to_email: "theejosh2@gmail.com"
+        }).then(() => {
+            showAlert('¡Mensaje enviado! Me pondré en contacto pronto.', 'success');
+            document.getElementById('contactForm').reset();
+        }).catch(err => {
+            showAlert('Error al enviar. Intentá por WhatsApp: +506 8549-4388', 'error');
+        }).finally(() => {
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensaje';
+            btn.disabled = false;
+        });
+    });
+
+    function showAlert(msg, type) {
+        const el = document.getElementById('formAlert');
+        el.textContent = msg;
+        el.className = 'form-alert ' + type;
+        el.style.display = 'block';
+        setTimeout(() => el.style.display = 'none', 6000);
+    }
+</script>
 </body>
 </html>
